@@ -63,6 +63,12 @@ module.exports = plugin(
             300: '#FF9500',
             400: '#995900',
           },
+          'fm-color-system-error': {
+            100: '#FFEBEA',
+            200: '#FF8983',
+            300: '#FF3B30',
+            400: '#99231D',
+          },
           'fm-color-system-info': {
             100: '#E6F2FF',
             200: '#66AFFF',
