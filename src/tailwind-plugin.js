@@ -7,15 +7,25 @@ module.exports = plugin(
         fontFamily: "'Inter', 'Noto Sans SC', sans-serif",
       },
     });
-    ['display', 'title', 'body', 'body-link'].forEach((type) => {
-      addComponents({
-        [`.fm-typo-${type}-xl-700`]: {
-          fontSize: '4.5rem',
-          lineHeight: 1.1389,
-          letterSpacing: '0.025em',
-          fontWeight: 700,
-        },
+    typo.forEach((style) => {
+      style.sizes.forEach((size) => {
+        const [name, fontSize, fontWeight, lineHeight, letterSpacing] = size;
+        addComponents({
+          [`.fm-typo-${style.type}-${name}-${fontWeight}`]: {
+            fontSize,
+            fontWeight,
+            lineHeight,
+            letterSpacing,
+            textDecorationLine: style.type === 'link' ? 'underline' : 'none',
+          },
+        });
       });
+    });
+    // tailwind doesn't have text shadow
+    addComponents({
+      '.fm-shadow-light-text': {
+        'text-shadow': '0px 1px 2px rgba(28, 28, 30, 0.24)',
+      },
     });
   },
   {
@@ -83,6 +93,54 @@ module.exports = plugin(
           },
         },
       },
+      boxShadow: {
+        'light-100': '0px 1px 4px 0px rgba(28, 28, 30, 0.24)',
+        'light-200': '0px 4px 8px 0px rgba(199, 199, 204, 0.24)',
+        'light-300': '0px 8px 16px 0px rgba(199, 199, 204, 0.24)',
+        'light-400': '0px 16px 24px 0px rgba(199, 199, 204, 0.24)',
+        'light-500': '0px 24px 32px -4px rgba(199, 199, 204, 0.24)',
+        'light-600': '0px 32px 40px -4px rgba(199, 199, 204, 0.24)',
+      },
     },
   },
 );
+
+const typo = [
+  {
+    type: 'display',
+    sizes: [
+      ['xl', '4.5rem', 700, '1.1389', '0.025em'],
+      ['lg', '3.75rem', 700, '1.1333', '0.025em'],
+      ['md', '3rem', 700, '1.125', '0.025em'],
+      ['sm', '2.25rem', 700, '1.1111', '0.025em'],
+    ],
+  },
+  {
+    type: 'title',
+    sizes: [
+      ['lg', '1.875rem', 700, '1.1333', '0.025em'],
+      ['md', '1.625rem', 700, '1.2308', '0.015em'],
+      ['sm', '1.375rem', 700, '1.2727', '0.015em'],
+    ],
+  },
+  {
+    type: 'body',
+    sizes: [
+      ['xl', '1.125rem', 700, '1.3333', '0.01em'],
+      ['lg', '1rem', 700, '1.5', '0.005em'],
+      ['md', '0.875rem', 700, '1.5714', '0.0125em'],
+      ['sm', '0.75rem', 700, '1.6667', '0.02em'],
+      ['lg', '1rem', 400, '1.5', '-0.005em'],
+      ['md', '0.875rem', 400, '1.5714', '0.01em'],
+      ['sm', '0.75rem', 400, '1.6667', '0.02em'],
+    ],
+  },
+  {
+    type: 'link',
+    sizes: [
+      ['lg', '1rem', 700, '1.5', '0.01em'],
+      ['md', '0.875rem', 700, '1.5714', '0.0125em'],
+      ['sm', '0.75rem', 700, '1.6667', '0.015em'],
+    ],
+  },
+];

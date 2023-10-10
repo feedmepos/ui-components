@@ -10,7 +10,8 @@ enum Color {
   'fab' = '#FFFFFF',
 }
 
-export interface Props {
+export interface FmButtonProps {
+  /** Label of the button */
   label?: string;
   variant?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'fab';
   size?: 'lg' | 'md';
@@ -19,7 +20,7 @@ export interface Props {
   icon?: string;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<FmButtonProps>(), {
   label: '',
   variant: 'tertiary',
   size: 'lg',
